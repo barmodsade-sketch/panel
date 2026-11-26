@@ -1,0 +1,9 @@
+{
+  "name": "barmods-vpn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BARMODS STORE Comic VPN Creator for Vercel",
+  "engines": {
+    "node": ">=18.x"
+  }
+}

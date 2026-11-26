@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BARMODS STORE — Comic VPN Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #FFFDF2;
+      --ink: #111111;
+      --yellow: #FFE600;
+      --cyan: #00D4FF;
+      --red: #FF3B30;
+      --green: #22C55E;
+      --purple: #A855F7;
+      --orange: #FF8A00;
+      --white: #FFFFFF;
+      --shadow: 5px 5px 0px #111111;
+      --shadow-sm: 3px 3px 0px #111111;
+      --shadow-lg: 7px 7px 0px #111111;
+      --accent: #00D4FF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(rgba(17, 17, 17, 0.12) 1.4px, transparent 1.4px),
+        radial-gradient(rgba(17, 17, 17, 0.06) 1.4px, var(--paper) 1.4px);
+      background-size: 22px 22px;
+      background-position: 0 0, 11px 11px;
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-bottom: 48px;
+    }
+
+    /* Top Comic Header */
+    .comic-header {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: var(--yellow);
+      border: 3.5px solid var(--ink);
+      box-shadow: var(--shadow);
+      padding: 6px 16px;
+      transform: rotate(-2deg);
+      position: relative;
+    }
+
+    .brand-title {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      letter-spacing: 2px;
+      color: var(--ink);
+      line-height: 1;
+      text-shadow: 2px 2px 0 var(--white);
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: var(--ink);
+      color: var(--yellow);
+      display: inline-block;
+      padding: 2px 8px;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--white);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      border: 2px solid var(--ink);
+      animation: pulseDot 1.6s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.28); }
+    }
+
+    .btn-mini {
+      background: var(--white);
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+
+    .btn-mini:hover {
+      background: var(--yellow);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .btn-mini:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    /* Sticky Bubble Navigation */
+    .bubble-nav-wrap {
+      position: sticky;
+      top: 10px;
+      z-index: 40;
+      max-width: 980px;
+      margin: 10px auto 22px;
+      padding: 0 16px;
+    }
+
+    .bubble-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: rgba(255, 253, 242, 0.94);
+      backdrop-filter: blur(6px);
+      border: 3.5px solid var(--ink);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+    }
+
+    .bubble-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 3px solid var(--ink);
+      background: var(--white);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .bubble-item:hover {
+      transform: translateY(-3px) rotate(-1deg);
+      box-shadow: 4px 6px 0 var(--ink);
+    }
+
+    .bubble-item.active {
+      background: var(--accent);
+      color: var(--ink);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 4px 6px 0 var(--ink);
+    }
+
+    /* Speech bubble tail under active nav bubble */
+    .bubble-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-right: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+    }
+
+    /* Main Grid */
+    .main-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* Comic Panel Card */
+    .comic-panel {
+      background: var(--white);
+      border: 3.5px solid var(--ink);
+      box-shadow: var(--shadow-lg);
+      border-radius: 22px;
+      padding: 22px;
+      position: relative;
+    }
+
+    .panel-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 3px dashed var(--ink);
+      flex-wrap: wrap;
+    }
+
+    .panel-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .proto-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 3px solid var(--ink);
+      background: var(--accent);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .panel-heading {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1.75rem;
+      letter-spacing: 1.2px;
+      line-height: 1.05;
+    }
+
+    .panel-desc {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #444;
+    }
+
+    .comic-burst {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      padding: 4px 12px;
+      border-radius: 999px;
+      transform: rotate(3deg);
+      white-space: nowrap;
+    }
+
+    /* Mode Bubble Switch (Create vs Trial) */
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .mode-btn {
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      padding: 11px 12px;
+      background: #F5F5F0;
+      color: var(--ink);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.14s ease, background 0.14s ease;
+    }
+
+    .mode-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .mode-btn.active-create {
+      background: var(--yellow);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .mode-btn.active-trial {
+      background: var(--red);
+      color: var(--white);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    /* Form Controls */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      gap: 8px;
+    }
+
+    .comic-input,
+    .comic-select {
+      width: 100%;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: background 0.14s ease, transform 0.14s ease;
+    }
+
+    .comic-input:focus,
+    .comic-select:focus {
+      background: var(--white);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .comic-input.invalid {
+      border-color: var(--red);
+      background: #FFF1F0;
+    }
+
+    .field-hint {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .field-hint.err {
+      color: var(--red);
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .quick-chip {
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--white);
+      padding: 3px 10px;
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+
+    .quick-chip:hover {
+      background: var(--yellow);
+    }
+
+    .btn-gen {
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: var(--cyan);
+      color: var(--ink);
+      padding: 0 13px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      white-space: nowrap;
+    }
+
+    .btn-gen:hover {
+      background: var(--yellow);
+    }
+
+    /* Main Submit Button */
+    .btn-submit {
+      margin-top: 18px;
+      width: 100%;
+      border: 3.5px solid var(--ink);
+      border-radius: 18px;
+      background: var(--yellow);
+      color: var(--ink);
+      padding: 14px 20px;
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: 1.8px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--accent);
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--ink);
+    }
+
+    .btn-submit:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Result / Output Panel */
+    .speech-empty {
+      background: var(--paper);
+      border: 3px dashed var(--ink);
+      border-radius: 18px;
+      padding: 28px 18px;
+      text-align: center;
+    }
+
+    .speech-empty-emoji {
+      font-size: 2.6rem;
+      margin-bottom: 8px;
+    }
+
+    .speech-empty h3 {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .speech-empty p {
+      font-size: 0.86rem;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .result-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: var(--green);
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 14px;
+    }
+
+    .result-banner.error {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .result-banner.demo {
+      background: var(--yellow);
+      color: var(--ink);
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .btn-action {
+      flex: 1;
+      min-width: 120px;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--ink);
+      padding: 9px 12px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.12s ease, transform 0.12s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--yellow);
+      transform: translateY(-1px);
+    }
+
+    .btn-action.primary {
+      background: var(--cyan);
+    }
+
+    .receipt-box {
+      background: #141418;
+      color: #F8FAFC;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 360px;
+      overflow-y: auto;
+      box-shadow: inset 0 0 0 2px #262630;
+    }
+
+    .config-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .config-card {
+      background: var(--paper);
+      border: 2.5px solid var(--ink);
+      border-radius: 12px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .config-meta {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .config-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .config-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--ink);
+    }
+
+    .btn-copy-sm {
+      border: 2.5px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      padding: 5px 12px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .btn-copy-sm:hover {
+      background: var(--accent);
+    }
+
+    /* History Strip */
+    .history-wrap {
+      max-width: 980px;
+      margin: 22px auto 0;
+      padding: 0 16px;
+    }
+
+    .history-panel {
+      background: var(--white);
+      border: 3.5px solid var(--ink);
+      box-shadow: var(--shadow);
+      border-radius: 20px;
+      padding: 16px 20px;
+    }
+
+    .history-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .history-title {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+    }
+
+    .history-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .history-pill {
+      border: 2.5px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      padding: 6px 14px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .history-pill:hover {
+      background: var(--yellow);
+    }
+
+    /* Modal (.env & Vercel Guide) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 540px;
+      background: var(--white);
+      border: 4px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+      border-radius: 22px;
+      padding: 22px;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .modal-head h2 {
+      font-family: 'Bangers', Impact, sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 1px;
+    }
+
+    .env-pre {
+      background: #141418;
+      color: #FFE600;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 10px 0 14px;
+    }
+
+    .guide-steps {
+      padding-left: 18px;
+      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      z-index: 120;
+      transform: translateY(90px);
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .footer-note {
+      max-width: 980px;
+      margin: 26px auto 0;
+      padding: 0 16px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #444;
+    }
+
+    @media (max-width: 820px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .bubble-nav {
+        border-radius: 22px;
+        gap: 8px;
+        padding: 10px;
+      }
+      .bubble-item {
+        padding: 8px 13px;
+        font-size: 0.84rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="comic-header">
+    <div class="brand-box">
+      <div class="brand-badge">
+        <div class="brand-title">BARMODS STORE</div>
+        <div class="brand-sub">⚡ VPN INSTANT CREATOR</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="status-pill" id="serverStatusPill">
+        <span class="status-dot"></span>
+        <span id="serverStatusText">BARMODS API READY</span>
+      </div>
+      <button type="button" class="btn-mini" id="btnOpenGuide">⚙️ .env & Vercel</button>
+    </div>
+  </header>
+
+  <!-- Floating Comic Bubble Navigation -->
+  <nav class="bubble-nav-wrap" aria-label="Pilih Protokol VPN">
+    <div class="bubble-nav" id="bubbleNav">
+      <button type="button" class="bubble-item active" data-proto="ssh">🚀 SSH</button>
+      <button type="button" class="bubble-item" data-proto="vmess">⚡ VMess</button>
+      <button type="button" class="bubble-item" data-proto="vless">🛡 VLESS</button>
+      <button type="button" class="bubble-item" data-proto="trojan">🐎 Trojan</button>
+      <button type="button" class="bubble-item" data-proto="shadowsocks">🔰 Shadowsocks</button>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="main-container">
+    <!-- Left Comic Panel: Form -->
+    <section class="comic-panel">
+      <div class="panel-ribbon">
+        <div class="panel-title-wrap">
+          <div class="proto-icon" id="protoIcon">🚀</div>
+          <div>
+            <h1 class="panel-heading" id="protoHeading">SSH ACCOUNT</h1>
+            <div class="panel-desc" id="protoDesc">OpenSSH • WebSocket TLS/HTTP • UDP • BadVPN</div>
+          </div>
+        </div>
+        <div class="comic-burst" id="modeBurst">POW! CREATE</div>
+      </div>
+
+      <!-- Mode Switch -->
+      <div class="mode-switch">
+        <button type="button" class="mode-btn active-create" id="btnModeCreate">💥 CREATE AKUN</button>
+        <button type="button" class="mode-btn" id="btnModeTrial">⚡ TRIAL AKUN</button>
+      </div>
+
+      <form id="vpnForm" novalidate>
+        <div class="form-grid">
+          <!-- Optional Multi-server Selector (shown if >1 server in .env) -->
+          <div class="field full" id="serverFieldWrap" style="display:none;">
+            <label for="serverSelect">🌍 Pilih Server</label>
+            <select id="serverSelect" class="comic-select"></select>
+          </div>
+
+          <!-- Username -->
+          <div class="field full">
+            <label for="username">
+              <span>👤 Username</span>
+              <span style="font-size:0.72rem;color:#555;">Huruf & angka saja</span>
+            </label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="username"
+                class="comic-input"
+                placeholder="contoh: barmods01"
+                autocomplete="off"
+                required
+              />
+              <button type="button" class="btn-gen" id="btnRandomUser">🎲 Acak</button>
+            </div>
+            <span class="field-hint" id="userHint">Tanpa spasi atau simbol khusus.</span>
+          </div>
+
+          <!-- Password (SSH only) -->
+          <div class="field full" id="passwordFieldWrap">
+            <label for="password">🔑 Password SSH</label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="password"
+                class="comic-input"
+                placeholder="contoh: bar123"
+                value="bar123"
+                autocomplete="off"
+              />
+              <button type="button" class="btn-gen" id="btnRandomPass">🎲 Acak</button>
+            </div>
+          </div>
+
+          <!-- Expired -->
+          <div class="field">
+            <label for="exp">📅 Expired (Hari)</label>
+            <input type="number" id="exp" class="comic-input" min="1" max="365" value="30" required />
+            <div class="chip-row">
+              <button type="button" class="quick-chip" data-fill="exp" data-val="1">1 Hari</button>
+              <button type="button" class="quick-chip" data-fill="exp" data-val="7">7 Hari</button>
+              <button type="button" class="quick-chip" data-fill="exp" data-val="30">30 Hari</button>
+            </div>
+          </div>
+
+          <!-- IP Limit -->
+          <div class="field">
+            <label for="iplimit">🌐 IP Limit</label>
+            <input type="number" id="iplimit" class="comic-input" min="0" max="100" value="2" required />
+            <div class="chip-row">
+              <button type="button" class="quick-chip" data-fill="iplimit" data-val="1">1 IP</button>
+              <button type="button" class="quick-chip" data-fill="iplimit" data-val="2">2 IP</button>
+              <button type="button" class="quick-chip" data-fill="iplimit" data-val="0">Unlimited</button>
+            </div>
+          </div>
+
+          <!-- Quota (Non-SSH) -->
+          <div class="field full" id="quotaFieldWrap" style="display:none;">
+            <label for="quota">📦 Quota (GB) — isi 0 untuk Unlimited</label>
+            <input type="number" id="quota" class="comic-input" min="0" max="10000" value="0" />
+            <div class="chip-row">
+              <button type="button" class="quick-chip" data-fill="quota" data-val="0">Unlimited (0)</button>
+              <button type="button" class="quick-chip" data-fill="quota" data-val="50">50 GB</button>
+              <button type="button" class="quick-chip" data-fill="quota" data-val="100">100 GB</button>
+              <button type="button" class="quick-chip" data-fill="quota" data-val="250">250 GB</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <span>🚀 BUAT AKUN SSH SEKARANG!</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Right Comic Panel: Result -->
+    <section class="comic-panel">
+      <div class="panel-ribbon">
+        <div class="panel-title-wrap">
+          <div class="proto-icon" style="background: var(--yellow);">💬</div>
+          <div>
+            <h2 class="panel-heading">HASIL AKUN</h2>
+            <div class="panel-desc">Format siap salin ke WhatsApp / Telegram</div>
+          </div>
+        </div>
+        <div class="comic-burst" style="background: var(--cyan); transform: rotate(-2deg);">ZAP!</div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="speech-empty" id="emptyResult">
+        <div class="speech-empty-emoji">💥</div>
+        <h3>BELUM ADA AKUN DIBUAT!</h3>
+        <p>Pilih protokol lewat navigasi gelembung di atas, isi form di sebelah kiri, lalu klik tombol <strong>BUAT AKUN</strong>.</p>
+      </div>
+
+      <!-- Filled Result State -->
+      <div id="filledResult" style="display:none;">
+        <div class="result-banner" id="resultBanner">
+          <span id="resultBannerText">✅ Akun berhasil dibuat!</span>
+        </div>
+
+        <div class="result-actions">
+          <button type="button" class="btn-action primary" id="btnCopyAll">📋 Salin Semua</button>
+          <button type="button" class="btn-action" id="btnDownloadTxt">💾 Download .txt</button>
+        </div>
+
+        <pre class="receipt-box" id="receiptBox"></pre>
+
+        <div class="config-list" id="configList"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Session History -->
+  <section class="history-wrap" id="historySection" style="display:none;">
+    <div class="history-panel">
+      <div class="history-head">
+        <div class="history-title">🗂️ RIWAYAT SESI INI</div>
+        <button type="button" class="btn-mini" id="btnClearHistory">Hapus Riwayat</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </section>
+
+  <footer class="footer-note">
+    ⚡ BARMODS STORE • Powered by Vercel Serverless API &amp; .env Config
+  </footer>
+
+  <!-- Modal Guide -->
+  <div class="modal-backdrop" id="guideModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>⚙️ KONFIGURASI .ENV &amp; VERCEL</h2>
+        <button type="button" class="btn-mini" id="btnCloseGuide">✕ Tutup</button>
+      </div>
+      <p style="font-size:0.86rem;font-weight:600;margin-bottom:8px;">
+        Isi Environment Variables berikut di file <code>.env</code> lokal atau di Dashboard Vercel (<strong>Settings → Environment Variables</strong>):
+      </p>
+      <pre class="env-pre">VPN_DOMAIN=sg1.domainkamu.com
+VPN_AUTH=api_key_panel_kamu
+VPN_CLOUDFRONT=-
+VPN_API_PORT=5888</pre>
+      <ol class="guide-steps">
+        <li>Push folder project ini ke repository <strong>GitHub</strong> kamu.</li>
+        <li>Buka <strong>Vercel</strong> → <strong>Add New Project</strong> → import repo GitHub tersebut.</li>
+        <li>Masukkan <code>VPN_DOMAIN</code> dan <code>VPN_AUTH</code> di menu Environment Variables, lalu klik <strong>Deploy</strong>.</li>
+        <li>Endpoint <code>/api/create</code> otomatis aktif menangani SSH, VMess, VLESS, Trojan, dan Shadowsocks (Create &amp; Trial).</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Tersalin!</div>
+
+  <script>
+    const PROTOCOLS = {
+      ssh: {
+        name: 'SSH',
+        heading: 'SSH ACCOUNT',
+        icon: '🚀',
+        accent: '#00D4FF',
+        desc: 'OpenSSH • WebSocket TLS/HTTP • UDP • BadVPN',
+        needsPassword: true,
+        needsQuota: false
+      },
+      vmess: {
+        name: 'VMess',
+        heading: 'VMESS ACCOUNT',
+        icon: '⚡',
+        accent: '#FFE600',
+        desc: 'WS TLS 443 • Non-TLS 80 • gRPC /vmess-grpc',
+        needsPassword: false,
+        needsQuota: true
+      },
+      vless: {
+        name: 'VLESS',
+        heading: 'VLESS ACCOUNT',
+        icon: '🛡',
+        accent: '#A855F7',
+        desc: 'WS TLS 443 • Non-TLS 80 • gRPC /vless-grpc',
+        needsPassword: false,
+        needsQuota: true
+      },
+      trojan: {
+        name: 'Trojan',
+        heading: 'TROJAN ACCOUNT',
+        icon: '🐎',
+        accent: '#22C55E',
+        desc: 'WS TLS 443 • /trojan-ws • gRPC /trojan-grpc',
+        needsPassword: false,
+        needsQuota: true
+      },
+      shadowsocks: {
+        name: 'Shadowsocks',
+        heading: 'SHADOWSOCKS',
+        icon: '🔰',
+        accent: '#FF8A00',
+        desc: 'WS TLS 443 • /ss-ws • gRPC /ss-grpc',
+        needsPassword: false,
+        needsQuota: true
+      }
+    };
+
+    const state = {
+      protocol: 'ssh',
+      mode: 'create', // 'create' | 'trial'
+      servers: [],
+      apiAvailable: false,
+      lastResult: null,
+      history: []
+    };
+
+    const els = {
+      bubbleNav: document.getElementById('bubbleNav'),
+      protoIcon: document.getElementById('protoIcon'),
+      protoHeading: document.getElementById('protoHeading'),
+      protoDesc: document.getElementById('protoDesc'),
+      modeBurst: document.getElementById('modeBurst'),
+      btnModeCreate: document.getElementById('btnModeCreate'),
+      btnModeTrial: document.getElementById('btnModeTrial'),
+      serverFieldWrap: document.getElementById('serverFieldWrap'),
+      serverSelect: document.getElementById('serverSelect'),
+      serverStatusText: document.getElementById('serverStatusText'),
+      vpnForm: document.getElementById('vpnForm'),
+      username: document.getElementById('username'),
+      userHint: document.getElementById('userHint'),
+      passwordFieldWrap: document.getElementById('passwordFieldWrap'),
+      password: document.getElementById('password'),
+      quotaFieldWrap: document.getElementById('quotaFieldWrap'),
+      quota: document.getElementById('quota'),
+      exp: document.getElementById('exp'),
+      iplimit: document.getElementById('iplimit'),
+      btnSubmit: document.getElementById('btnSubmit'),
+      emptyResult: document.getElementById('emptyResult'),
+      filledResult: document.getElementById('filledResult'),
+      resultBanner: document.getElementById('resultBanner'),
+      resultBannerText: document.getElementById('resultBannerText'),
+      receiptBox: document.getElementById('receiptBox'),
+      configList: document.getElementById('configList'),
+      btnCopyAll: document.getElementById('btnCopyAll'),
+      btnDownloadTxt: document.getElementById('btnDownloadTxt'),
+      historySection: document.getElementById('historySection'),
+      historyList: document.getElementById('historyList'),
+      btnClearHistory: document.getElementById('btnClearHistory'),
+      guideModal: document.getElementById('guideModal'),
+      btnOpenGuide: document.getElementById('btnOpenGuide'),
+      btnCloseGuide: document.getElementById('btnCloseGuide'),
+      btnRandomUser: document.getElementById('btnRandomUser'),
+      btnRandomPass: document.getElementById('btnRandomPass'),
+      toast: document.getElementById('toast')
+    };
+
+    let toastTimer = null;
+    function showToast(msg) {
+      els.toast.textContent = msg;
+      els.toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2200);
+    }
+
+    function copyText(text, label = 'Teks') {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => showToast(`✅ ${label} tersalin!`))
+          .catch(() => fallbackCopy(text, label));
+      } else {
+        fallbackCopy(text, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(`✅ ${label} tersalin!`);
+      } catch (e) {
+        showToast('❌ Gagal menyalin.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function randomCode(prefix, len = 4) {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let out = prefix;
+      for (let i = 0; i < len; i++) {
+        out += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return out;
+    }
+
+    function updateUI() {
+      const cfg = PROTOCOLS[state.protocol];
+      document.documentElement.style.setProperty('--accent', cfg.accent);
+
+      // Update bubble nav active state
+      els.bubbleNav.querySelectorAll('.bubble-item').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.proto === state.protocol);
+      });
+
+      els.protoIcon.textContent = cfg.icon;
+      els.protoHeading.textContent = cfg.heading;
+      els.protoDesc.textContent = cfg.desc;
+
+      els.passwordFieldWrap.style.display = cfg.needsPassword ? 'flex' : 'none';
+      els.quotaFieldWrap.style.display = cfg.needsQuota ? 'flex' : 'none';
+
+      const isTrial = state.mode === 'trial';
+      els.btnModeCreate.className = 'mode-btn' + (!isTrial ? ' active-create' : '');
+      els.btnModeTrial.className = 'mode-btn' + (isTrial ? ' active-trial' : '');
+      els.modeBurst.textContent = isTrial ? 'ZAP! TRIAL' : 'POW! CREATE';
+      els.modeBurst.style.background = isTrial ? '#FF3B30' : '#FFE600';
+      els.modeBurst.style.color = isTrial ? '#FFFFFF' : '#111111';
+
+      els.btnSubmit.innerHTML = `<span>${cfg.icon} ${isTrial ? 'BUAT TRIAL' : 'BUAT AKUN'} ${cfg.name.toUpperCase()} SEKARANG!</span>`;
+    }
+
+    function validateUsername() {
+      const val = els.username.value.trim();
+      const bad = !val || /\s/.test(val) || /[^a-zA-Z0-9]/.test(val);
+      if (val && bad) {
+        els.username.classList.add('invalid');
+        els.userHint.classList.add('err');
+        els.userHint.textContent = '❌ Gunakan hanya huruf dan angka tanpa spasi.';
+        return false;
+      }
+      els.username.classList.remove('invalid');
+      els.userHint.classList.remove('err');
+      els.userHint.textContent = 'Tanpa spasi atau simbol khusus.';
+      return !bad;
+    }
+
+    function buildDemoResponse(payload) {
+      const { protocol, mode, username, password, exp, quota, iplimit } = payload;
+      const domain = 'sg1.barmods-demo.com';
+      const cloudfront = '-';
+      const uuid = 'b4rm0ds-' + Math.random().toString(16).slice(2, 6) + '-4a9c-9f21-' + Math.random().toString(16).slice(2, 14);
+      const expDate = new Date(Date.now() + Number(exp || 1) * 86400000).toISOString().slice(0, 10);
+      const quotaLabel = Number(quota) === 0 ? 'Unlimited' : `${quota} GB`;
+      const ipLabel = Number(iplimit) === 0 ? 'Unlimited' : `${iplimit} IP`;
+
+      if (protocol === 'ssh') {
+        const msg = `╭━━━━━━━━━━━━━━━━━━━━━━╮
+      🚀 *ꜱꜱʜ ᴀᴄᴄᴏᴜɴᴛ*
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+┌〔 📄 *ᴀᴄᴄᴏᴜɴᴛ ɪɴꜰᴏ* 〕
+├ 👤 ᴜꜱᴇʀɴᴀᴍᴇ : \`${username}\`
+├ 🔑 ᴘᴀꜱꜱᴡᴏʀᴅ : \`${password}\`
+├ 📅 ᴇxᴘɪʀᴇᴅ  : \`${expDate}\`
+├ 🌐 ɪᴘ ʟɪᴍɪᴛ : \`${iplimit}\`
+└ 🟢 ꜱᴛᴀᴛᴜꜱ   : \`ACTIVE\`
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
+├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
+├ 🌍 ɴᴀᴍᴇꜱᴇʀᴠᴇʀ  : \`ns.${domain}\`
+└ 🔑 ᴘᴜʙ ᴋᴇʏ     : \`-\`
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+📡 *ʜᴛᴛᴘ ᴄᴜꜱᴛᴏᴍ*
+
+\`${domain}:80@${username}:${password}\`
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+
+https://${domain}:81/ssh-${username}.txt
+
+🎉 *ᴀᴄᴄᴏᴜɴᴛ ʙᴇʀʜᴀꜱɪʟ ᴅɪʙᴜᴀᴛ* (${mode.toUpperCase()} - PREVIEW)`;
+        return {
+          success: true,
+          demo: true,
+          protocol,
+          mode,
+          username,
+          message: msg,
+          config: {
+            http_custom: `${domain}:80@${username}:${password}`,
+            save_url: `https://${domain}:81/ssh-${username}.txt`
+          }
+        };
+      }
+
+      const protoTitle = protocol.toUpperCase();
+      const tlsLink = `${protocol}://${uuid}@${domain}:443?path=/${protocol}&security=tls&type=ws#${username}`;
+      const httpLink = `${protocol}://${uuid}@${domain}:80?path=/${protocol}&security=none&type=ws#${username}`;
+      const grpcLink = `${protocol}://${uuid}@${domain}:443?serviceName=${protocol}-grpc&security=tls&type=grpc#${username}`;
+      const savePrefix = protocol === 'shadowsocks' ? 'ss' : protocol;
+
+      const msg = `╭━━━━━━━━━━━━━━━━━━━━━━╮
+     ⚡ *${protoTitle} ᴀᴄᴄᴏᴜɴᴛ*
+╰━━━━━━━━━━━━━━━━━━━━━━╯
+
+┌〔 📄 *ᴀᴄᴄᴏᴜɴᴛ ɪɴꜰᴏ* 〕
+├ 👤 ᴜꜱᴇʀɴᴀᴍᴇ : \`${username}\`
+├ 🆔 ᴜᴜɪᴅ      : \`${uuid}\`
+├ 📅 ᴇxᴘɪʀᴇᴅ   : \`${expDate}\`
+├ 📦 Qᴜᴏᴛᴀ     : \`${quotaLabel}\`
+├ 🌐 ɪᴘ ʟɪᴍɪᴛ  : \`${ipLabel}\`
+└ 🟢 ꜱᴛᴀᴛᴜꜱ    : \`ACTIVE\`
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
+├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
+├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
+└ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 *ᴜʀʟ ᴛʟꜱ*
+${tlsLink}
+
+🔗 *ᴜʀʟ ɢʀᴘᴄ*
+${grpcLink}
+
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+https://${domain}:81/${savePrefix}-${username}.txt
+
+🎉 *ᴀᴄᴄᴏᴜɴᴛ ʙᴇʀʜᴀꜱɪʟ ᴅɪʙᴜᴀᴛ* (${mode.toUpperCase()} - PREVIEW)`;
+
+      const config = protocol === 'trojan'
+        ? { tls: tlsLink, grpc: grpcLink, save_url: `https://${domain}:81/${savePrefix}-${username}.txt` }
+        : { tls: tlsLink, http: httpLink, grpc: grpcLink, save_url: `https://${domain}:81/${savePrefix}-${username}.txt` };
+
+      return { success: true, demo: true, protocol, mode, username, message: msg, config };
+    }
+
+    function renderResult(data) {
+      state.lastResult = data;
+      els.emptyResult.style.display = 'none';
+      els.filledResult.style.display = 'block';
+
+      els.resultBanner.className = 'result-banner' + (!data.success ? ' error' : data.demo ? ' demo' : '');
+      if (!data.success) {
+        els.resultBannerText.textContent = '❌ Gagal membuat akun VPN';
+      } else if (data.demo) {
+        els.resultBannerText.textContent = '⚡ Mode Preview (Deploy ke Vercel untuk koneksi VPS live)';
+      } else {
+        els.resultBannerText.textContent = `✅ Akun ${data.protocol.toUpperCase()} (${data.mode.toUpperCase()}) berhasil dibuat!`;
+      }
+
+      els.receiptBox.textContent = data.message || 'Tidak ada pesan.';
+
+      els.configList.innerHTML = '';
+      if (data.config && typeof data.config === 'object') {
+        const labelMap = {
+          tls: 'URL TLS',
+          http: 'URL HTTP / Non-TLS',
+          grpc: 'URL gRPC',
+          http_custom: 'HTTP Custom',
+          save_url: 'Link Save Account'
+        };
+        Object.entries(data.config).forEach(([key, val]) => {
+          if (!val || val === '-') return;
+          if (!labelMap[key]) return;
+          const card = document.createElement('div');
+          card.className = 'config-card';
+
+          const meta = document.createElement('div');
+          meta.className = 'config-meta';
+          const lbl = document.createElement('div');
+          lbl.className = 'config-label';
+          lbl.textContent = labelMap[key];
+          const v = document.createElement('div');
+          v.className = 'config-val';
+          v.textContent = val;
+          meta.appendChild(lbl);
+          meta.appendChild(v);
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-copy-sm';
+          btn.textContent = 'Salin';
+          btn.addEventListener('click', () => copyText(val, labelMap[key]));
+
+          card.appendChild(meta);
+          card.appendChild(btn);
+          els.configList.appendChild(card);
+        });
+      }
+    }
+
+    function renderHistory() {
+      if (!state.history.length) {
+        els.historySection.style.display = 'none';
+        return;
+      }
+      els.historySection.style.display = 'block';
+      els.historyList.innerHTML = '';
+      state.history.forEach((item) => {
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'history-pill';
+        const icon = PROTOCOLS[item.protocol]?.icon || '⚡';
+        pill.textContent = `${icon} ${item.username} (${item.protocol.toUpperCase()})`;
+        pill.addEventListener('click', () => {
+          renderResult(item);
+          showToast(`📄 Menampilkan akun ${item.username}`);
+        });
+        els.historyList.appendChild(pill);
+      });
+    }
+
+    async function checkServerApi() {
+      // Only probe /api/create when hosted on http(s) origin (like Vercel)
+      if (!window.location.protocol.startsWith('http')) {
+        els.serverStatusText.textContent = 'PREVIEW MODE';
+        return;
+      }
+      try {
+        const res = await fetch('/api/create', { method: 'GET' });
+        if (!res.ok) throw new Error('API not ready');
+        const data = await res.json();
+        if (data && Array.isArray(data.servers) && data.servers.length > 0) {
+          state.apiAvailable = true;
+          state.servers = data.servers;
+          els.serverStatusText.textContent = data.servers.length > 1
+            ? `${data.servers.length} SERVER AKTIF`
+            : `${data.servers[0].name} AKTIF`;
+
+          if (data.servers.length > 1) {
+            els.serverSelect.innerHTML = '';
+            data.servers.forEach((srv) => {
+              const opt = document.createElement('option');
+              opt.value = srv.id;
+              opt.textContent = srv.name;
+              els.serverSelect.appendChild(opt);
+            });
+            els.serverFieldWrap.style.display = 'flex';
+          }
+        }
+      } catch (e) {
+        state.apiAvailable = false;
+        els.serverStatusText.textContent = 'PREVIEW MODE';
+      }
+    }
+
+    // Event Listeners
+    els.bubbleNav.addEventListener('click', (e) => {
+      const btn = e.target.closest('.bubble-item');
+      if (!btn) return;
+      state.protocol = btn.dataset.proto;
+      updateUI();
+    });
+
+    els.btnModeCreate.addEventListener('click', () => {
+      state.mode = 'create';
+      if (Number(els.exp.value) === 1) els.exp.value = 30;
+      updateUI();
+    });
+
+    els.btnModeTrial.addEventListener('click', () => {
+      state.mode = 'trial';
+      els.exp.value = 1;
+      if (!els.username.value.trim()) {
+        els.username.value = randomCode('trial', 4);
+      }
+      updateUI();
+    });
+
+    els.btnRandomUser.addEventListener('click', () => {
+      const prefix = state.mode === 'trial' ? 'trial' : 'barmods';
+      els.username.value = randomCode(prefix, 4);
+      validateUsername();
+    });
+
+    els.btnRandomPass.addEventListener('click', () => {
+      els.password.value = randomCode('bm', 5);
+    });
+
+    els.username.addEventListener('input', validateUsername);
+
+    document.querySelectorAll('.quick-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const target = document.getElementById(chip.dataset.fill);
+        if (target) target.value = chip.dataset.val;
+      });
+    });
+
+    els.vpnForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateUsername()) {
+        els.username.focus();
+        showToast('❌ Username tidak valid!');
+        return;
+      }
+
+      const payload = {
+        protocol: state.protocol,
+        mode: state.mode,
+        username: els.username.value.trim(),
+        password: els.password.value.trim() || '123456',
+        exp: Number(els.exp.value) || 1,
+        quota: Number(els.quota.value) || 0,
+        iplimit: Number(els.iplimit.value) || 0,
+        serverId: els.serverSelect.value || '1'
+      };
+
+      els.btnSubmit.disabled = true;
+      els.btnSubmit.innerHTML = '<span>⏳ MEMPROSES AKUN...</span>';
+
+      try {
+        if (!window.location.protocol.startsWith('http')) {
+          throw new Error('PREVIEW_ONLY');
+        }
+        const res = await fetch('/api/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const contentType = res.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('PREVIEW_ONLY');
+        }
+        const data = await res.json();
+        const resultObj = { ...data, protocol: payload.protocol, mode: payload.mode, username: payload.username };
+        renderResult(resultObj);
+        if (resultObj.success) {
+          state.history.unshift(resultObj);
+          if (state.history.length > 8) state.history.pop();
+          renderHistory();
+          showToast('🎉 Akun VPN berhasil dibuat!');
+        } else {
+          showToast('❌ Gagal membuat akun!');
+        }
+      } catch (err) {
+        if (err.message === 'PREVIEW_ONLY') {
+          const demo = buildDemoResponse(payload);
+          renderResult(demo);
+          state.history.unshift(demo);
+          if (state.history.length > 8) state.history.pop();
+          renderHistory();
+          showToast('⚡ Mode Preview aktif!');
+        } else {
+          renderResult({
+            success: false,
+            protocol: payload.protocol,
+            mode: payload.mode,
+            username: payload.username,
+            message: '❌ Gagal terhubung ke server API. Pastikan .env di Vercel sudah diisi dengan benar.'
+          });
+          showToast('❌ Koneksi API gagal!');
+        }
+      } finally {
+        els.btnSubmit.disabled = false;
+        updateUI();
+      }
+    });
+
+    els.btnCopyAll.addEventListener('click', () => {
+      if (state.lastResult && state.lastResult.message) {
+        copyText(state.lastResult.message, 'Detail Akun');
+      }
+    });
+
+    els.btnDownloadTxt.addEventListener('click', () => {
+      if (!state.lastResult || !state.lastResult.message) return;
+      const blob = new Blob([state.lastResult.message], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `barmods-${state.lastResult.protocol}-${state.lastResult.username}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('💾 File .txt diunduh!');
+    });
+
+    els.btnClearHistory.addEventListener('click', () => {
+      state.history = [];
+      renderHistory();
+      showToast('🗑️ Riwayat dibersihkan');
+    });
+
+    els.btnOpenGuide.addEventListener('click', () => els.guideModal.classList.add('open'));
+    els.btnCloseGuide.addEventListener('click', () => els.guideModal.classList.remove('open'));
+    els.guideModal.addEventListener('click', (e) => {
+      if (e.target === els.guideModal) els.guideModal.classList.remove('open');
+    });
+
+    // Init
+    updateUI();
+    checkServerApi();
+  </script>
+</body>
+</html>
